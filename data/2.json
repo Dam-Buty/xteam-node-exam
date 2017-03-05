@@ -1,0 +1,19 @@
+{
+    "name": "Second object",
+    "tags": ["yolo", "ipsum", "diam", "amet", "lectus"],
+    "then": {
+      "finally": {
+        "some": [{
+          "data": {
+            "tags": ["wap", "bop", "a", "lula"],
+            "stuff": 1
+          }
+        }, {
+          "tags": ["wap", "bam", "boom"]
+        }]
+      },
+      "prologue": {
+        "tags": "GO"
+      }
+    }
+}
