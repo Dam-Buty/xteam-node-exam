@@ -1,0 +1,7 @@
+
+# Ignore cache files
+.cache.content.json
+.cache.fileList.json
+
+# Ignore npm modules
+node_modules

@@ -1,0 +1,24 @@
+{
+  "name": "xteam-node-exam",
+  "version": "1.0.0",
+  "description": "X Team Node Exam",
+  "main": "bin/xteam",
+  "directories": {
+    "test": "./tests",
+    "bin": "./bin"
+  },
+  "scripts": {
+    "start": "bin/xteam",
+    "test": "npm run tests"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Dam-Buty/xteam-node-exam.git"
+  },
+  "author": "Damien BUTY",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Dam-Buty/xteam-node-exam/issues"
+  },
+  "homepage": "https://github.com/Dam-Buty/xteam-node-exam#readme"
+}
