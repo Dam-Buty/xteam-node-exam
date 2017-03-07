@@ -9,7 +9,9 @@
   },
   "scripts": {
     "start": "bin/xteam",
-    "test": "npm run tests"
+    "test": "npm run tests",
+    "clearCache": "rm .*.json",
+    "debug": "NODE_ENV=development bin/xteam"
   },
   "repository": {
     "type": "git",
