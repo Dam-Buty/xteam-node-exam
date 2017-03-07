@@ -1,7 +1,7 @@
 'use strict'
 
-const processArguments = require("./lib/processArguments.js")
-const getFromCache = require("./lib/getFromCache.js")
+const getInputTags = require("./lib/getInputTags.js")
+const cache = require("./lib/cache.js")
 const getFromFiles = require("./lib/getFromFiles.js")
 const crawlData = require("./lib/crawlData.js")
 const searchTags = require("./lib/searchTags.js")
@@ -10,7 +10,7 @@ const respondAndExit = require("./lib/respondAndExit.js")
 let results = ""
 
 // First fetch the tags to be searched
-processArguments((err, tags) => {
+getInputTags((err, tags) => {
   if (err !== null) {
     console.error("XXX - Usage : pipe, arg or tags.txt file")
     process.exit(1)
@@ -18,8 +18,11 @@ processArguments((err, tags) => {
 
   console.log("====> " + tags.map(tag => "'" + tag + "'"))
 
-  // First try to get the results from cache
-  getFromCache((err, crawledData) => {
+  console.log(cache)
+  console.log(cache.read)
+
+  // Then try to get the results from cache
+  cache.read((err, crawledData) => {
     if (err === null) {
       // If the cache was fresh, then we just need to
       // reduce the results to the tags we're actually searching
