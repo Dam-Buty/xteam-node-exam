@@ -5,8 +5,10 @@ const getFromFiles = require("./lib/getFromFiles.js")
 const crawlData = require("./lib/crawlData.js")
 const searchTags = require("./lib/searchTags.js")
 const formatOutput = require("./lib/formatOutput.js")
-
 const getFromCache = require("./lib/cache.js").read
+const talk = require("./lib/talk.js").talk
+const error = require("./lib/talk.js").error
+const respond = require("./lib/talk.js").respond
 
 let results = ""
 let formattedOutput = ""
@@ -14,11 +16,12 @@ let formattedOutput = ""
 // First fetch the tags to be searched
 getInputTags((err, tags) => {
   if (err !== null) {
-    console.error("XXX - Usage : pipe, arg or tags.txt file")
+    error("Usage : pipe, arg or tags.txt file")
     process.exit(1)
   }
 
-  console.log("====> " + tags.map(tag => "'" + tag + "'"))
+  // Print the tags array to console
+  talk(tags.map(tag => "'" + tag + "'"))
 
   // Then try to get the results from cache
   getFromCache((err, crawledData) => {
@@ -29,14 +32,15 @@ getInputTags((err, tags) => {
 
       // format the results and print to console
       formattedOutput = formatOutput(results)
-      console.log(formattedOutput)
+      respond(formattedOutput)
 
       process.exit(0)
     } else {
+      talk("No cache available, getting data from the JSON files")
       // If cache is absent or stale, then fetch the data from the JSON files
       getFromFiles((err, data) => {
         if (err !== null) {
-          console.error("XXX - No data could be found. Exiting process...")
+          error("No data could be found. Exiting process...")
           process.exit(1)
         }
 
@@ -48,7 +52,7 @@ getInputTags((err, tags) => {
 
           // format the results and print to console
           formattedOutput = formatOutput(results)
-          console.log(formattedOutput)
+          respond(formattedOutput)
 
           process.exit(0)
         })
