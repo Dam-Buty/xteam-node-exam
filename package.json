@@ -9,7 +9,7 @@
   },
   "scripts": {
     "start": "bin/xteam",
-    "test": "npm run tests",
+    "test": "NODE_ENV=test mocha tests/**",
     "clearCache": "rm -f .*.json",
     "debug": "NODE_ENV=development bin/xteam"
   },
