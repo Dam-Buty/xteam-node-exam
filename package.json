@@ -10,7 +10,7 @@
   "scripts": {
     "start": "bin/xteam",
     "test": "npm run tests",
-    "clearCache": "rm .*.json",
+    "clearCache": "rm -f .*.json",
     "debug": "NODE_ENV=development bin/xteam"
   },
   "repository": {
@@ -22,5 +22,9 @@
   "bugs": {
     "url": "https://github.com/Dam-Buty/xteam-node-exam/issues"
   },
-  "homepage": "https://github.com/Dam-Buty/xteam-node-exam#readme"
+  "homepage": "https://github.com/Dam-Buty/xteam-node-exam#readme",
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "mocha": "^3.2.0"
+  }
 }

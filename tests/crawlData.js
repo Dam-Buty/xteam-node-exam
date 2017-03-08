@@ -3,7 +3,7 @@
 const chai = require('chai');
 const expect = chai.expect; // we are using the "expect" style of Chai
 
-describe("crawlData : Crawls an arbitrary array of arbitrarily nested objects", () => {
+describe("crawlData", () => {
   const crawlData = require("../lib/crawlData")
 
   it("should return an empty object if data array is empty", () => {

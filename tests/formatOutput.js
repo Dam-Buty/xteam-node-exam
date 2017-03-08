@@ -4,7 +4,7 @@ const chai = require('chai');
 const expect = chai.expect; // we are using the "expect" style of Chai
 
 
-describe("formatOutput : Formats a results object for printing on the console", () => {
+describe("formatOutput", () => {
   const formatOutput = require("../lib/formatOutput")
 
   it("should return an empty string for an empty object", () => {

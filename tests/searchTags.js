@@ -3,7 +3,7 @@
 const chai = require('chai');
 const expect = chai.expect; // we are using the "expect" style of Chai
 
-describe("searchTags : Reduces a crawled data object to the tags we're actually searching", () => {
+describe("searchTags", () => {
   const searchTags = require("../lib/searchTags")
 
   const crawledData = {

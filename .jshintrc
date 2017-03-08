@@ -21,6 +21,8 @@
     "esversion": 6,
     "globals": {
       "describe": false,
-      "it": false
+      "it": false,
+      "after": false,
+      "before": false
     }
 }
