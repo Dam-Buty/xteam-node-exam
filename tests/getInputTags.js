@@ -43,19 +43,19 @@ describe("getInputTags", () => {
 
   describe("with no input and no tags file", () => {
     before(done => {
-      mockCli(argv, stdio, (err, results) => {
-        console.log("--")
-      })
+    //   mockCli(argv, stdio, (err, results) => {
+    //     console.log("--")
+    //   })
       removeTagsFile(done)
     })
 
-    it("should return an error", done => {
-      getInputTags((err, tags) => {
-        console.log(err)
-        expect(err).to.not.be.null
-        done()
-      })
-    })
+    // it("should return an error", done => {
+    //   getInputTags((err, tags) => {
+    //     console.log(err)
+    //     expect(err).to.not.be.null
+    //     done()
+    //   })
+    // })
 
     it("should test something else", done => {
       expect([1].indexOf(2)).to.equal(-1)

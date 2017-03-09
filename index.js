@@ -1,20 +1,23 @@
 'use strict'
 
+// Base modules
 const getInputTags = require("./lib/getInputTags")
 const getFromFiles = require("./lib/getFromFiles")
 const crawlData = require("./lib/crawlData")
 const searchTags = require("./lib/searchTags")
 const formatOutput = require("./lib/formatOutput")
+// Cache functions
 const getFromCache = require("./lib/cache").read
+const cacheFileList = require("./lib/cache").writeFileList
+const cacheContent = require("./lib/cache").writeContent
+// Talk functions
 const error = require("./lib/talk").error
 const respond = require("./lib/talk").respond
 const debug = require("./lib/talk").debug
-const cache = require("./lib/cache")
+const warn = require("./lib/talk").warn
 
 let results = ""
 let formattedOutput = ""
-
-const EMPTY_TAG_LIST = -1
 
 // We start by clearing the screen
 process.stdout.write('\x1Bc');
@@ -22,11 +25,15 @@ process.stdout.write('\x1Bc');
 // First fetch the tags to be searched
 getInputTags((err, tags) => {
   if (err !== null) {
-    if (err === EMPTY_TAG_LIST) {
-      error("The provided tag list was empty")
-    } else {
-      error("No tag list was provided")
-    }
+    error("No tag list was provided")
+
+    warn("You can search for tags in three ways :")
+    warn("- by piping them to stdin ('cat tags.txt | xteam')")
+    warn("- by adding them as a command line argument ('xteam lorem,ipsum')")
+    warn("- by running xteam in a folder containing a 'tags.txt' file")
+    warn("")
+    warn("Tag lists can be comma-separated, or separated by new lines. If your tags might contain commas, you need to use the new lines format.")
+
     process.exit(1)
   }
 
@@ -50,18 +57,19 @@ getInputTags((err, tags) => {
       // If cache is absent or stale, then fetch the data from the JSON files
       getFromFiles((err, data, files) => {
         if (err !== null) {
-          error("No data could be found. Exiting process...")
+          error("No data could be found.")
+          warn("The xteam executable will look for valid JSON files in a subfolder named 'data'.")
           process.exit(1)
         }
 
         // Write the file list to disk (used to check cache freshness)
-        cache.writeFileList(files, () => {
+        cacheFileList(files, () => {
           // Then crawl the JSON data to count tag occurrences
 
           const crawledData = crawlData(data)
 
           // Write the crawled data to disk
-          cache.writeContent(crawledData, () => {
+          cacheContent(crawledData, () => {
             // And finally reduce the crawled data
             // to the tags we're actually searching
             results = searchTags(tags, crawledData)

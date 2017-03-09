@@ -41,7 +41,7 @@ describe("Cache", () => {
       "2.json"
     ]
 
-    describe("Unreadable data", () => {
+    describe("with invalid JSON", () => {
       before(done => {
         // Write invalid JSON data to file list
         fs.writeFile(FILE_LIST, "Invalid JSON data", () => {
@@ -49,7 +49,7 @@ describe("Cache", () => {
         })
       })
 
-      it("should return UNREADABLE_CACHE if the file list is not valid JSON", done => {
+      it("should return UNREADABLE_CACHE", done => {
         cache.read(err => {
           expect(err).to.equal(UNREADABLE_CACHE)
           done()
@@ -57,7 +57,7 @@ describe("Cache", () => {
       })
     })
 
-    describe("Readable data", () => {
+    describe("with valid JSON", () => {
       it("should create a filesList JSON cache", done => {
         cache.writeFileList(filesList, err => {
           expect(err).to.be.null
@@ -109,7 +109,7 @@ describe("Cache", () => {
       })
     })
 
-    describe("Unreadable data", () => {
+    describe("with invalid JSON", () => {
       before(done => {
         // Write invalid JSON data to content cache
         fs.writeFile(CACHE_FILE, "Invalid JSON data", () => {
@@ -125,7 +125,7 @@ describe("Cache", () => {
       })
     })
 
-    describe("Readable data", () => {
+    describe("with valid JSON", () => {
       it("should create a valid JSON content cache", done => {
         cache.writeContent(contentCache, err => {
           expect(err).to.be.null
