@@ -10,15 +10,16 @@
  *  ...
  * }
  * @param {String[]} tags
- * @param {object} results
- * @return {object} filteredData
+ * @param {object} crawledData
+ * @return {object} results
  */
-  const searchTags = (tags, results) => {
+  const searchTags = (tags, crawledData) => {
     return tags
-    .reduce((filteredData, tag) => {
-      filteredData[tag] = results[tag] || 0 // We create a 0 score line if the tag can't be found
-
-      return filteredData
+    .reduce((results, tag) => {
+      // for each tag we get the score in the crawledData object
+      // or create a 0 score line
+      results[tag] = crawledData[tag] || 0
+      return results
     }, {})
   }
 

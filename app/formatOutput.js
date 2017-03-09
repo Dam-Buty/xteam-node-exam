@@ -6,20 +6,22 @@ const EMPTY_COLUMN = PAD.repeat(COLUMN_WIDTH)
 const LINE_SEPARATOR = "\n"
 
 /**
- * Formats the filtered data object for printing on the console. Each line is
+ * Sorts and formats the filtered data object for printing on the console.
  * Each line is padded with the PAD character to COLUMN_WIDTH :
  * |=======|
  * |RESULTS|
  * |=======|
  * cookie        7
  * dough         2
- * @param {object[]} filteredData
+ * @param {object[]} results
  * @return {String} formattedOutput
  */
-  const formatOutput = filteredData => {
-    return Object.keys(filteredData)
-      .sort((a, b) => filteredData[b] - filteredData[a]) // sort by score before formatting
-      .map(tag => (tag + EMPTY_COLUMN).substring(0, COLUMN_WIDTH) + filteredData[tag])
+  const formatOutput = results => {
+    return Object.keys(results)
+      // sort by score before formatting
+      .sort((a, b) => results[b] - results[a])
+      // format in columns of COLUMN_WIDTH with the scores
+      .map(tag => (tag + EMPTY_COLUMN).substring(0, COLUMN_WIDTH) + results[tag])
       .join(LINE_SEPARATOR)
   }
 

@@ -61,7 +61,7 @@ describe("Cache", () => {
       it("should be able to read it and parse it back", done => {
         fs.readFile(_.FILE_LIST, (err, data) => {
           expect(err).to.be.null
-          expect(JSON.parse(data).files).to.eql(filesList)
+          expect(JSON.parse(data).files).to.deep.equal(filesList)
           done()
         })
       })
@@ -129,7 +129,7 @@ describe("Cache", () => {
       it("should be able to read it, and parse it back", done => {
         fs.readFile(_.CACHE_FILE, (err, data) => {
           expect(err).to.be.null
-          expect(JSON.parse(data)).to.eql(contentCache)
+          expect(JSON.parse(data)).to.deep.equal(contentCache)
           done()
         })
       })
@@ -137,7 +137,7 @@ describe("Cache", () => {
       it("should return the cached content and no error", done => {
         cache.read((err, content) => {
           expect(err).to.equal(_.FRESH)
-          expect(content).to.eql(contentCache)
+          expect(content).to.deep.equal(contentCache)
           done()
         })
       })

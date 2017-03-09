@@ -29,7 +29,7 @@ describe("searchTags", () => {
     }
 
     expect(searchTags(tagNotFound, crawledData)).to.be.an("object")
-    expect(searchTags(tagNotFound, crawledData)).to.eql(zeroScoreLine)
+    expect(searchTags(tagNotFound, crawledData)).to.deep.equal(zeroScoreLine)
   })
 
   it("should return only 0 score lines if crawled data is empty", () => {
@@ -39,7 +39,7 @@ describe("searchTags", () => {
     }
 
     expect(searchTags(searchedTags, {})).to.be.an("object")
-    expect(searchTags(searchedTags, {})).to.eql(zeroScoreLines)
+    expect(searchTags(searchedTags, {})).to.deep.equal(zeroScoreLines)
   })
 
   it("should return the appropriate filtered data if neither is empty", () => {
@@ -49,6 +49,6 @@ describe("searchTags", () => {
     }
 
     expect(searchTags(searchedTags, crawledData)).to.be.an("object")
-    expect(searchTags(searchedTags, crawledData)).to.eql(filteredData)
+    expect(searchTags(searchedTags, crawledData)).to.deep.equal(filteredData)
   })
 })

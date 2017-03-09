@@ -34,7 +34,7 @@ describe("crawlData", () => {
     }
 
     expect(crawlData(topLevelData)).to.be.an("object")
-    expect(crawlData(topLevelData)).to.eql(expectedResult)
+    expect(crawlData(topLevelData)).to.deep.equal(expectedResult)
   })
 
   const nestedData = topLevelData.concat([
@@ -43,22 +43,30 @@ describe("crawlData", () => {
       type: 4,
       subNested: { type: 5, tags: ["one", "more", "time", "please"]},
       even: { more: { tags: ["one", "two", "three"] } }
-    }}
+    }},
+    { type:10, array: [
+      { tags: ["time"] },
+      { type: 10, otherArray: [
+        { type: 666, tags: ["mic", "check"]},
+        { type: 667, tags: ["mic"]}
+      ]}
+    ]}
   ])
 
   it("... and in nested objects", () => {
     const expectedResult = {
-      check: 3,
+      check: 4,
       one: 3,
       two: 2,
       three: 2,
+      time: 2,
+      mic: 2,
       four: 1,
       more: 1,
-      time: 1,
       please: 1
     }
 
     expect(crawlData(nestedData)).to.be.an("object")
-    expect(crawlData(nestedData)).to.eql(expectedResult)
+    expect(crawlData(nestedData)).to.deep.equal(expectedResult)
   })
 })

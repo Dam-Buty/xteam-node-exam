@@ -67,22 +67,22 @@ const readStdin = cb => {
 
  /**
   * Turns the raw data into an array of trimmed tags
-  * @param {function} cb
+  * @param {String} input
   * @return {String[]} tags
   */
  const sanitizeInput = input => {
    const byLine = input.split("\n")
-   let array = []
+   let tags = []
 
    // Note that if the input is multiline, tags can contain commas
    if (byLine.length > 1) {
-     array = byLine
+     tags = byLine
    } else {
-     array = input.split(",")
+     tags = input.split(",")
    }
 
    // Return the array trimmed and with empty strings filtered out
-   return array
+   return tags
     .map(tag => tag.trim())
     .filter(String)
  }
@@ -97,15 +97,16 @@ const readStdin = cb => {
  * - the CLI argument
  * - the tags.txt file
  * @param {function} cb
- * @return {String[]} input
+ * @return {String[]} tags
  */
 const getInputTags = cb => {
   const sanitizedCb = input => {
-    const sanitizedInput = sanitizeInput(input)
+    const tags = sanitizeInput(input)
 
-    if (sanitizedInput.length) {
-      cb(null, sanitizedInput)
+    if (tags.length) {
+      cb(null, tags)
     } else {
+      // If the tags list is empty we must return an error
       cb(_.EMPTY_TAG_LIST)
     }
   }

@@ -5,3 +5,6 @@
 
 # Ignore npm modules
 node_modules
+
+# Ignore istanbul coverage folder
+coverage

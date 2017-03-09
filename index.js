@@ -24,7 +24,7 @@ let formattedOutput = ""
 // We start by clearing the screen
 process.stdout.write(_.CLEAR_SCREEN);
 
-// First fetch the tags to be searched
+// We first need to figure out the tags we are searching
 getInputTags((err, tags) => {
   if (err !== null) {
     error("No tag list was provided")
@@ -36,6 +36,7 @@ getInputTags((err, tags) => {
     warn("")
     warn("Tag lists can be comma-separated, or separated by new lines. If your tags might contain commas, you need to use the new lines format.")
 
+    // IF the tag list was empty or inexistant we exit with the correct return code
     if (err === _.EMPTY_TAG_LIST) {
       process.exit(_.RC_EMPTY_TAG_LIST)
     } else {
@@ -46,10 +47,10 @@ getInputTags((err, tags) => {
   // Print the tags array to console
   debug(tags.map(tag => "'" + tag + "'").join(", "))
 
-  // Then try to get the results from cache
+  // Try to get the results from cache
   getFromCache((err, crawledData) => {
     if (err === null) {
-      // If the cache was fresh, then we just need to
+      // The cache is fresh, so we just need to
       // reduce the results to the tags we're actually searching
       results = searchTags(tags, crawledData)
 
@@ -59,9 +60,11 @@ getInputTags((err, tags) => {
 
       process.exit(_.RC_NO_ERROR)
     } else {
+      // The cache is absent or stale,
+      // we need to fetch the data from the JSON files
       debug("No cache available, getting data from the JSON files")
-      // If cache is absent or stale, then fetch the data from the JSON files
-      getFromFiles((err, data, files) => {
+
+      getFromFiles((err, contents, files) => {
         if (err !== null) {
           error("No data could be found.")
           warn("The xteam executable will look for valid JSON files in a subfolder named 'data'.")
@@ -71,8 +74,7 @@ getInputTags((err, tags) => {
         // Write the file list to disk (used to check cache freshness)
         cacheFileList(files, () => {
           // Then crawl the JSON data to count tag occurrences
-
-          const crawledData = crawlData(data)
+          const crawledData = crawlData(contents)
 
           // Write the crawled data to disk
           cacheContent(crawledData, () => {
@@ -90,6 +92,4 @@ getInputTags((err, tags) => {
       })
     }
   })
-
-
 })

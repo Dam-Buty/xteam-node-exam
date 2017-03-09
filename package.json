@@ -10,6 +10,7 @@
   "scripts": {
     "start": "bin/xteam",
     "test": "NODE_ENV=test mocha tests/**",
+    "coverage": "istanbul cover _mocha tests/**",
     "clearCache": "rm -f .*.json",
     "debug": "NODE_ENV=development bin/xteam"
   },
@@ -25,6 +26,7 @@
   "homepage": "https://github.com/Dam-Buty/xteam-node-exam#readme",
   "devDependencies": {
     "chai": "^3.5.0",
+    "istanbul": "^0.4.5",
     "mocha": "^3.2.0"
   }
 }

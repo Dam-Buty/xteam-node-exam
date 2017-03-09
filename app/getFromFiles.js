@@ -22,6 +22,7 @@ const _ = require("../lib/config")
 
     debug("Reading file : " + file)
 
+    // Try to read the file
     fs.readFile(filePath, 'utf8', (err, content) => {
       if (err) {
         warn("File " + file + " could not be read... ignoring")
@@ -29,6 +30,7 @@ const _ = require("../lib/config")
       }
 
       try {
+        // Try to parse the JSON and return it
         let parsedContent = JSON.parse(content)
         cb(null, parsedContent)
       } catch(err) {
@@ -44,39 +46,45 @@ const _ = require("../lib/config")
 
  /**
   * Scans the data folder for JSON files
-  * and returns their contents in an array of objects
+  * and returns their parsed contents in an array of objects
   * @param {function} cb
   * @return {object[]} contents
   * @return {String[]} files
   */
 const getFromFiles = cb => {
+  // Scan the data folder
   fs.readdir(_.DATA_FOLDER, (err, files) => {
     if (err) {
       error("Error reading the data directory!")
       cb(_.NO_DATA_FOLDER)
     }
 
+    // If the data folder is not empty
     if (files.length) {
       let contents = []
       let remaining = files.length
 
+      // Loop on all the files
       files.forEach(file => readFile(file, (err, content) => {
         if (err === null) {
+          // push all parsed content into an array
           contents.push(content)
         }
 
         remaining = remaining - 1
 
-        // If we've passed the last file then we can return the contents array
         if (!remaining) {
+          // When we've passed the last file we can return the contents array
           if (contents.length) {
             cb(null, contents, files)
           } else {
+            // If there was no valid JSON in the folder we return an error
             cb(_.NO_VALID_DATA)
           }
         }
       }))
     } else {
+      // If the data folder is empty we return an error
       cb(_.EMPTY_DATA_FOLDER)
     }
   })

@@ -21,14 +21,16 @@
      * @param {object[]} obj
      */
     const findTagsLists = obj => {
+      // traverse all properties
       for (let prop in obj) {
         if (obj.hasOwnProperty(prop)) {
           if (prop === "tags") {
+            // tags found! add them to the list
             tagsList = tagsList.concat(obj[prop])
           } else {
-            // Strings will be iterated by (for..in) infinitely, causing
-            // stack size explosion, so they shouldn't be recursed through
-            if (typeof obj[prop] !== "string") {
+            // recurse through all other object type properties
+            // (arrays are typeof 'object' too for some reason)
+            if (typeof obj[prop] === "object") {
               findTagsLists(obj[prop])
             }
           }
