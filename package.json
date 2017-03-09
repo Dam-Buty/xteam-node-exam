@@ -25,6 +25,7 @@
   "homepage": "https://github.com/Dam-Buty/xteam-node-exam#readme",
   "devDependencies": {
     "chai": "^3.5.0",
-    "mocha": "^3.2.0"
+    "mocha": "^3.2.0",
+    "mock-cli": "^0.1.2"
   }
 }

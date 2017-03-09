@@ -14,13 +14,19 @@ const cache = require("./lib/cache")
 let results = ""
 let formattedOutput = ""
 
+const EMPTY_TAG_LIST = -1
+
 // We start by clearing the screen
 process.stdout.write('\x1Bc');
 
 // First fetch the tags to be searched
 getInputTags((err, tags) => {
   if (err !== null) {
-    error("Usage : pipe, arg or tags.txt file")
+    if (err === EMPTY_TAG_LIST) {
+      error("The provided tag list was empty")
+    } else {
+      error("No tag list was provided")
+    }
     process.exit(1)
   }
 
