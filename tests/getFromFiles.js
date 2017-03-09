@@ -1,38 +1,32 @@
 /* jshint expr:true */
 /*jshint unused:false*/
 
-const chai = require('chai');
-const expect = chai.expect; // we are using the "expect" style of Chai
-
+const chai = require('chai')
+const expect = chai.expect
 const fs = require("fs")
-
-const DATA_FOLDER = "data"
-
-const NO_DATA_FOLDER = 1
-const EMPTY_DATA_FOLDER      = 2
-const NO_VALID_DATA          = 3
+const _ = require("../lib/config")
 
 describe("getFromFiles", () => {
-  const getFromFiles = require("../lib/getFromFiles")
+  const getFromFiles = require("../app/getFromFiles")
 
   let actualFileList = []
 
   describe("with no data folder", () => {
     before(done => {
-      fs.rename(DATA_FOLDER, DATA_FOLDER + ".bak", (err) => {
+      fs.rename(_.DATA_FOLDER, _.DATA_FOLDER + ".bak", (err) => {
         done()
       })
     })
 
     it("should return NO_DATA_FOLDER", done => {
       getFromFiles((err, contents, files) => {
-        expect(err).to.equal(NO_DATA_FOLDER)
+        expect(err).to.equal(_.NO_DATA_FOLDER)
         done()
       })
     })
 
     after(done => {
-      fs.rename(DATA_FOLDER + ".bak", DATA_FOLDER, (err) => {
+      fs.rename(_.DATA_FOLDER + ".bak", _.DATA_FOLDER, (err) => {
         done()
       })
     })
@@ -40,8 +34,8 @@ describe("getFromFiles", () => {
 
   describe("with an empty data folder", () => {
     before(done => {
-      fs.rename(DATA_FOLDER, DATA_FOLDER + ".bak", err => {
-        fs.mkdir(DATA_FOLDER, err => {
+      fs.rename(_.DATA_FOLDER, _.DATA_FOLDER + ".bak", err => {
+        fs.mkdir(_.DATA_FOLDER, err => {
           done()
         })
       })
@@ -49,14 +43,14 @@ describe("getFromFiles", () => {
 
     it("should return EMPTY_DATA_FOLDER", done => {
       getFromFiles((err, contents, files) => {
-        expect(err).to.equal(EMPTY_DATA_FOLDER)
+        expect(err).to.equal(_.EMPTY_DATA_FOLDER)
         done()
       })
     })
 
     after(done => {
-      fs.unlink(DATA_FOLDER, err => {
-        fs.rename(DATA_FOLDER + ".bak", DATA_FOLDER, (err) => {
+      fs.unlink(_.DATA_FOLDER, err => {
+        fs.rename(_.DATA_FOLDER + ".bak", _.DATA_FOLDER, (err) => {
           done()
         })
       })
@@ -65,7 +59,7 @@ describe("getFromFiles", () => {
 
   describe("with a data folder containing actual JSON data", () => {
     before(done => {
-      fs.readdir(DATA_FOLDER, (err, files) => {
+      fs.readdir(_.DATA_FOLDER, (err, files) => {
         actualFileList = files
         done()
       })

@@ -6,19 +6,17 @@ const expect = chai.expect; // we are using the "expect" style of Chai
 const mockCli = require('mock-cli')
 const fs = require("fs")
 const Readable = require("stream").Readable
-
-const TAGS_FILE = 'tags.txt'
-const EMPTY_TAG_LIST = -1
+const _ = require("../lib/config")
 
 const removeTagsFile = done => {
-  fs.rename(TAGS_FILE, TAGS_FILE + ".bak", err => {
+  fs.rename(_.TAGS_FILE, _.TAGS_FILE + ".bak", err => {
     done()
   })
 }
 
 const restoreTagsFile = done => {
-  fs.unlink(TAGS_FILE, err => {
-    fs.rename(TAGS_FILE + ".bak", TAGS_FILE, err => {
+  fs.unlink(_.TAGS_FILE, err => {
+    fs.rename(_.TAGS_FILE + ".bak", _.TAGS_FILE, err => {
       done()
     })
   })
@@ -32,7 +30,7 @@ const streamString = string => {
 }
 
 describe("getInputTags", () => {
-  const getInputTags = require("../lib/getInputTags")
+  const getInputTags = require("../app/getInputTags")
 
   const argv = ["should be node", "should be index.js"]
   const stdio = {

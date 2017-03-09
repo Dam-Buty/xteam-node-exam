@@ -1,9 +1,7 @@
 const fs = require('fs')
-const debug = require("./talk.js").debug
-const error = require("./talk.js").error
-
-const TAGS_FILE = 'tags.txt'
-const EMPTY_TAG_LIST = -1
+const debug = require("../lib/talk").debug
+const error = require("../lib/talk").error
+const _ = require("../lib/config")
 
 /*******************
  * Helper Functions
@@ -49,13 +47,13 @@ const readStdin = cb => {
  * @return {String[]} data
  */
  const readTagsFile = cb => {
-   fs.readFile(TAGS_FILE, 'utf8', (err, data) => {
+   fs.readFile(_.TAGS_FILE, 'utf8', (err, data) => {
      if (err) {
        if (err.code === "ENOENT") {
-         error("File " + TAGS_FILE + " could not be found")
+         error("File " + _.TAGS_FILE + " could not be found")
          cb(err)
        } else {
-         error("There was an error reading the " + TAGS_FILE + " file :")
+         error("There was an error reading the " + _.TAGS_FILE + " file :")
          error(err)
          cb(err)
        }
@@ -106,7 +104,7 @@ const getInputTags = cb => {
     if (sanitizedInput.length) {
       cb(null, sanitizedInput)
     } else {
-      cb(EMPTY_TAG_LIST)
+      cb(_.EMPTY_TAG_LIST)
     }
   }
 

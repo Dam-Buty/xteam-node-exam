@@ -1,10 +1,10 @@
 /* jshint expr:true */
 
-const chai = require('chai');
-const expect = chai.expect; // we are using the "expect" style of Chai
+const chai = require('chai')
+const expect = chai.expect
 
 describe("crawlData", () => {
-  const crawlData = require("../lib/crawlData")
+  const crawlData = require("../app/crawlData")
 
   it("should return an empty object if data array is empty", () => {
     expect(crawlData([])).to.be.an("object")

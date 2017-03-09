@@ -1,11 +1,11 @@
 'use strict'
 
-// Base modules
-const getInputTags = require("./lib/getInputTags")
-const getFromFiles = require("./lib/getFromFiles")
-const crawlData = require("./lib/crawlData")
-const searchTags = require("./lib/searchTags")
-const formatOutput = require("./lib/formatOutput")
+// Application modules
+const getInputTags = require("./app/getInputTags")
+const getFromFiles = require("./app/getFromFiles")
+const crawlData = require("./app/crawlData")
+const searchTags = require("./app/searchTags")
+const formatOutput = require("./app/formatOutput")
 // Cache functions
 const getFromCache = require("./lib/cache").read
 const cacheFileList = require("./lib/cache").writeFileList

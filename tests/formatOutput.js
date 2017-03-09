@@ -1,11 +1,10 @@
 /* jshint expr:true */
 
-const chai = require('chai');
-const expect = chai.expect; // we are using the "expect" style of Chai
-
+const chai = require('chai')
+const expect = chai.expect
 
 describe("formatOutput", () => {
-  const formatOutput = require("../lib/formatOutput")
+  const formatOutput = require("../app/formatOutput")
 
   it("should return an empty string for an empty object", () => {
     expect(formatOutput({ })).to.be.a('string');

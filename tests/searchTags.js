@@ -4,7 +4,7 @@ const chai = require('chai');
 const expect = chai.expect; // we are using the "expect" style of Chai
 
 describe("searchTags", () => {
-  const searchTags = require("../lib/searchTags")
+  const searchTags = require("../app/searchTags")
 
   const crawledData = {
     pepperoni: 12,

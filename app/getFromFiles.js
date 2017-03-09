@@ -1,14 +1,9 @@
 const fs = require('fs')
 const path = require('path')
-const warn = require("./talk.js").warn
-const debug = require("./talk.js").debug
-const error = require("./talk.js").error
-
-const DATA_FOLDER = "data"
-
-const NO_DATA_FOLDER = 1
-const EMPTY_DATA_FOLDER      = 2
-const NO_VALID_DATA          = 3
+const warn = require("../lib/talk").warn
+const debug = require("../lib/talk").debug
+const error = require("../lib/talk").error
+const _ = require("../lib/config")
 
 /*******************
  * Helper Functions
@@ -21,7 +16,7 @@ const NO_VALID_DATA          = 3
  * @return {object} parsedContent
  */
   const readFile = (file, cb) => {
-    const filePath = path.join(DATA_FOLDER, file)
+    const filePath = path.join(_.DATA_FOLDER, file)
 
     debug("Reading file : " + file)
 
@@ -53,10 +48,10 @@ const NO_VALID_DATA          = 3
   * @return {String[]} files
   */
 const getFromFiles = cb => {
-  fs.readdir(DATA_FOLDER, (err, files) => {
+  fs.readdir(_.DATA_FOLDER, (err, files) => {
     if (err) {
       error("Error reading the data directory!")
-      cb(NO_DATA_FOLDER)
+      cb(_.NO_DATA_FOLDER)
     }
 
     if (files.length) {
@@ -75,12 +70,12 @@ const getFromFiles = cb => {
           if (contents.length) {
             cb(null, contents, files)
           } else {
-            cb(NO_VALID_DATA)
+            cb(_.NO_VALID_DATA)
           }
         }
       }))
     } else {
-      cb(EMPTY_DATA_FOLDER)
+      cb(_.EMPTY_DATA_FOLDER)
     }
   })
 }
