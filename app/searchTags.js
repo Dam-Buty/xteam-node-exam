@@ -1,4 +1,4 @@
-
+'use strict'
 
 /**
  * Searches the crawled results for the searched tags

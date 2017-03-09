@@ -1,3 +1,5 @@
+'use strict'
+
 /**
  * Crawls the data from the JSON files
  * And returns a crawled data object looking like this :

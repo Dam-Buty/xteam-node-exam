@@ -1,3 +1,4 @@
+'use strict'
 
 const COLUMN_WIDTH = 15
 const PAD = " "
