@@ -1,3 +1,38 @@
+Some JSON parsing CLI
+====
+
+I will parse JSON files for you, and count occurrences of your favorite tags!
+
+How to install
+----
+My only dependencies are for unit testing. You can install them with `npm install`.
+
+If you want, you can also install me globally with `sudo npm install -g`. This allows you to run `xteam` from any directory containing a `data` folder.
+
+How to test
+----
+`npm test`
+
+(`npm coverage` will generate an istanbul coverage report) 
+
+
+How to use
+----
+
+If i am installed globally, you can just run `xteam` from anywhere. I will complain if i can't find a folder called `data` in the current directory, though.
+
+Otherwise you can use `npm start`, `node index.js` or `bin/xteam` when you are at my repository's root.
+
+In any case, you have three ways of telling me your favorite tags :
+
+```
+cat tags.txt | xteam     # by piping content to stdin
+xteam lorem,ipsum        # by specifying a comma-separated list of tags as argument
+xteam                    # if nothing is offered, i will try to read a tags.txt file in the current folder
+```
+
+
+
 Node.js exam
 ====
 
