@@ -15,12 +15,14 @@ const error = require("./lib/talk").error
 const respond = require("./lib/talk").respond
 const debug = require("./lib/talk").debug
 const warn = require("./lib/talk").warn
+// Config
+const _ = require("./lib/config")
 
 let results = ""
 let formattedOutput = ""
 
 // We start by clearing the screen
-process.stdout.write('\x1Bc');
+process.stdout.write(_.CLEAR_SCREEN);
 
 // First fetch the tags to be searched
 getInputTags((err, tags) => {
@@ -34,7 +36,11 @@ getInputTags((err, tags) => {
     warn("")
     warn("Tag lists can be comma-separated, or separated by new lines. If your tags might contain commas, you need to use the new lines format.")
 
-    process.exit(1)
+    if (err === _.EMPTY_TAG_LIST) {
+      process.exit(_.RC_EMPTY_TAG_LIST)
+    } else {
+      process.exit(_.RC_NO_TAG_LIST)
+    }
   }
 
   // Print the tags array to console
@@ -51,7 +57,7 @@ getInputTags((err, tags) => {
       formattedOutput = formatOutput(results)
       respond(formattedOutput)
 
-      process.exit(0)
+      process.exit(_.RC_NO_ERROR)
     } else {
       debug("No cache available, getting data from the JSON files")
       // If cache is absent or stale, then fetch the data from the JSON files
@@ -59,7 +65,7 @@ getInputTags((err, tags) => {
         if (err !== null) {
           error("No data could be found.")
           warn("The xteam executable will look for valid JSON files in a subfolder named 'data'.")
-          process.exit(1)
+          process.exit(_.RC_NO_DATA)
         }
 
         // Write the file list to disk (used to check cache freshness)
@@ -78,7 +84,7 @@ getInputTags((err, tags) => {
             formattedOutput = formatOutput(results)
             respond(formattedOutput)
 
-            process.exit(0)
+            process.exit(_.RC_NO_ERROR)
           })
         })
       })

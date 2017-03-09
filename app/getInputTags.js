@@ -122,7 +122,7 @@ const getInputTags = cb => {
             debug("Got tags from tags file :")
             sanitizedCb(tagsFile)
           } else {
-            cb(err)
+            cb(_.NO_TAG_LIST)
           }
         })
       }
