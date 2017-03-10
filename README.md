@@ -31,7 +31,9 @@ xteam lorem,ipsum        # by specifying a comma-separated list of tags as argum
 xteam                    # if nothing is offered, i will try to read a tags.txt file in the current folder
 ```
 
+_(the original assignment is reproduced below)_
 
+---
 
 Node.js exam
 ====
