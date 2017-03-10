@@ -22,15 +22,14 @@ const readStdin = cb => {
   // Start processing stream from stdin
   process.stdin.on('readable', () => {
     var chunk = process.stdin.read()
+      console.log(chunk)
 
     if (chunk === null) {
       // If we get a null chunk and stdin is empty
-      // then we haven't been piped anything so we return null
+      // then we haven't been piped anything so we just stop the stream
       if (!stdin) {
-        // Pausing the stream allows the process to exit gracefully
         debug("Nothing in stdin")
         process.stdin.pause()
-        cb(null)
       }
     } else {
       stdin = stdin + chunk
@@ -59,9 +58,9 @@ const readStdin = cb => {
          error(err)
          cb(err)
        }
+     } else {
+       cb(null, data)
      }
-
-     cb(null, data)
    })
  }
 
