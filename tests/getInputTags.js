@@ -46,6 +46,7 @@ describe("getInputTags", () => {
 
     const stdio = {
       stdin: emptyStream,
+      // stdin: emptyStream,
       stdout: process.stdout,
       stderr: process.stderr
     }

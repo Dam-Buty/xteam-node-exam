@@ -18,11 +18,11 @@ const warn          = require("./lib/talk").warn
 // Config
 const _             = require("./lib/config")
 
-let results = ""
+let results         = ""
 let formattedOutput = ""
 
 // We start by clearing the screen
-// process.stdout.write(_.CLEAR_SCREEN);
+process.stdout.write(_.CLEAR_SCREEN);
 
 // We first need to figure out the tags we are searching
 getInputTags((err, tags) => {

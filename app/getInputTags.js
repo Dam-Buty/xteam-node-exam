@@ -16,6 +16,7 @@ const _     = require("../lib/config")
  */
 const readStdin = cb => {
   let stdin = ""
+  let exited = false
 
   process.stdin.setEncoding('utf8')
 
@@ -25,10 +26,14 @@ const readStdin = cb => {
 
     if (chunk === null) {
       // If we get a null chunk and stdin is empty
-      // then we haven't been piped anything so we just stop the stream
+      // then we haven't been piped anything so we just stop the stream and return null
       if (!stdin) {
         debug("Nothing in stdin")
         process.stdin.pause()
+        if (!exited) {
+          exited = true
+          cb(null)
+        }
       }
     } else {
       stdin = stdin + chunk
@@ -37,7 +42,12 @@ const readStdin = cb => {
 
   // When the whole stream is consumed
   process.stdin.on('end', () => {
-    cb(stdin)
+    // The stub we use in unit testing doesn't work exactly like the real deal
+    // so we need to check for double callback executions
+    if (!exited) {
+      exited = true
+      cb(stdin)
+    }
   })
 }
 
