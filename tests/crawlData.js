@@ -1,4 +1,5 @@
 /* jshint expr:true */
+/*jshint unused:false*/
 'use strict'
 
 const chai = require('chai')
@@ -37,22 +38,6 @@ describe("crawlData", () => {
     expect(crawlData(topLevelData)).to.deep.equal(expectedResult)
   })
 
-  const nestedData = topLevelData.concat([
-    { type: 2, nested: { type: 3, tags: ["check", "three", "four"] }},
-    { type: 2, nested: {
-      type: 4,
-      subNested: { type: 5, tags: ["one", "more", "time", "please"]},
-      even: { more: { tags: ["one", "two", "three"] } }
-    }},
-    { type:10, array: [
-      { tags: ["time"] },
-      { type: 10, otherArray: [
-        { type: 666, tags: ["mic", "check"]},
-        { type: 667, tags: ["mic"]}
-      ]}
-    ]}
-  ])
-
   it("... and in nested objects", () => {
     const expectedResult = {
       check: 4,
@@ -65,6 +50,22 @@ describe("crawlData", () => {
       more: 1,
       please: 1
     }
+
+    const nestedData = topLevelData.concat([
+      { type: 2, nested: { type: 3, tags: ["check", "three", "four"] }},
+      { type: 2, nested: {
+        type: 4,
+        subNested: { type: 5, tags: ["one", "more", "time", "please"]},
+        even: { more: { tags: ["one", "two", "three"] } }
+      }},
+      { type:10, array: [
+        { tags: ["time"] },
+        { type: 10, otherArray: [
+          { type: 666, tags: ["mic", "check"]},
+          { type: 667, tags: ["mic"]}
+        ]}
+      ]}
+    ])
 
     expect(crawlData(nestedData)).to.be.an("object")
     expect(crawlData(nestedData)).to.deep.equal(expectedResult)

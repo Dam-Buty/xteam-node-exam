@@ -14,6 +14,7 @@ describe("getFromFiles", () => {
 
   describe("with no data folder", () => {
     before(done => {
+      // rename data folder as data.bak
       fs.rename(_.DATA_FOLDER, _.DATA_FOLDER + ".bak", (err) => {
         done()
       })
@@ -27,6 +28,7 @@ describe("getFromFiles", () => {
     })
 
     after(done => {
+      // restore original data folder
       fs.rename(_.DATA_FOLDER + ".bak", _.DATA_FOLDER, (err) => {
         done()
       })
@@ -35,7 +37,9 @@ describe("getFromFiles", () => {
 
   describe("with an empty data folder", () => {
     before(done => {
+      // rename data folder as data.bak
       fs.rename(_.DATA_FOLDER, _.DATA_FOLDER + ".bak", err => {
+        // create dummy data folder
         fs.mkdir(_.DATA_FOLDER, err => {
           done()
         })
@@ -50,7 +54,9 @@ describe("getFromFiles", () => {
     })
 
     after(done => {
+      // remove dummy data folder
       fs.unlink(_.DATA_FOLDER, err => {
+        // restore original data folder
         fs.rename(_.DATA_FOLDER + ".bak", _.DATA_FOLDER, (err) => {
           done()
         })
@@ -60,6 +66,7 @@ describe("getFromFiles", () => {
 
   describe("with a data folder containing actual JSON data", () => {
     before(done => {
+      // fetch original data folder's actual file list
       fs.readdir(_.DATA_FOLDER, (err, files) => {
         actualFileList = files
         done()

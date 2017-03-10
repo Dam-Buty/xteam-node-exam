@@ -1,4 +1,5 @@
 /* jshint expr:true */
+/*jshint unused:false*/
 'use strict'
 
 const chai = require('chai')
@@ -6,7 +7,7 @@ const expect = chai.expect
 const fs = require("fs")
 const _ = require("../lib/config")
 
-
+// remove any existing cache files
 const cleanUp = done => {
   fs.unlink(_.FILE_LIST, err => {
     fs.unlink(_.CACHE_FILE, err => {
@@ -18,7 +19,6 @@ const cleanUp = done => {
 describe("Cache", () => {
   const cache = require("../lib/cache")
 
-  // remove any existing cache files
   before(cleanUp)
 
   it("should return NO_CACHE when neither files are present", done => {
@@ -48,6 +48,8 @@ describe("Cache", () => {
           done()
         })
       })
+
+      after(cleanUp)
     })
 
     describe("with valid JSON", () => {
@@ -72,6 +74,8 @@ describe("Cache", () => {
           done()
         })
       })
+
+      after(cleanUp)
     })
   })
 
@@ -86,18 +90,22 @@ describe("Cache", () => {
     let actualFilesList = [ ]
 
     // Refresh the cache file list with the actual content of the data directory
+    // so it is now detected as fresh
     before(done => {
-      fs.readdir(_.DATA_FOLDER, (err, files) => {
-        actualFilesList = files
-        cache.writeFileList(actualFilesList, err => {
-          done()
+      cleanUp(() => {
+        fs.readdir(_.DATA_FOLDER, (err, files) => {
+          actualFilesList = files
+          cache.writeFileList(actualFilesList, err => {
+            done()
+          })
         })
       })
     })
 
     it("should return NO_CACHE when cache looks fresh but no content cache exists", done => {
-      cache.read(err => {
+      cache.read((err, data) => {
         expect(err).to.equal(_.NO_CACHE)
+        expect(data).to.be.undefined
         done()
       })
     })
@@ -110,9 +118,10 @@ describe("Cache", () => {
         })
       })
 
-      it("should return UNREADABLE_CACHE if the content cache is not valid JSON", done => {
-        cache.read(err => {
+      it("should return UNREADABLE_CACHE", done => {
+        cache.read((err, data) => {
           expect(err).to.equal(_.UNREADABLE_CACHE)
+          expect(data).to.be.undefined
           done()
         })
       })

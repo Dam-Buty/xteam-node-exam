@@ -1,9 +1,9 @@
 'use strict'
 
-const fs = require('fs')
+const fs    = require('fs')
 const debug = require("../lib/talk").debug
 const error = require("../lib/talk").error
-const _ = require("../lib/config")
+const _     = require("../lib/config")
 
 /*******************
  * Helper Functions
@@ -22,7 +22,6 @@ const readStdin = cb => {
   // Start processing stream from stdin
   process.stdin.on('readable', () => {
     var chunk = process.stdin.read()
-      console.log(chunk)
 
     if (chunk === null) {
       // If we get a null chunk and stdin is empty

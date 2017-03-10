@@ -22,7 +22,9 @@
     "globals": {
       "describe": false,
       "it": false,
+      "afterEach": false,
       "after": false,
+      "beforeEach": false,
       "before": false
     }
 }

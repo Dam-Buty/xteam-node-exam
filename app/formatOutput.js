@@ -1,8 +1,8 @@
 'use strict'
 
-const COLUMN_WIDTH = 15
-const PAD = " "
-const EMPTY_COLUMN = PAD.repeat(COLUMN_WIDTH)
+const COLUMN_WIDTH   = 15
+const PAD            = " "
+const EMPTY_COLUMN   = PAD.repeat(COLUMN_WIDTH)
 const LINE_SEPARATOR = "\n"
 
 /**

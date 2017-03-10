@@ -1,22 +1,22 @@
 'use strict'
 
 // Application modules
-const getInputTags = require("./app/getInputTags")
-const getFromFiles = require("./app/getFromFiles")
-const crawlData = require("./app/crawlData")
-const searchTags = require("./app/searchTags")
-const formatOutput = require("./app/formatOutput")
+const getInputTags  = require("./app/getInputTags")
+const getFromFiles  = require("./app/getFromFiles")
+const crawlData     = require("./app/crawlData")
+const searchTags    = require("./app/searchTags")
+const formatOutput  = require("./app/formatOutput")
 // Cache functions
-const getFromCache = require("./lib/cache").read
+const getFromCache  = require("./lib/cache").read
 const cacheFileList = require("./lib/cache").writeFileList
-const cacheContent = require("./lib/cache").writeContent
+const cacheContent  = require("./lib/cache").writeContent
 // Talk functions
-const error = require("./lib/talk").error
-const respond = require("./lib/talk").respond
-const debug = require("./lib/talk").debug
-const warn = require("./lib/talk").warn
+const error         = require("./lib/talk").error
+const respond       = require("./lib/talk").respond
+const debug         = require("./lib/talk").debug
+const warn          = require("./lib/talk").warn
 // Config
-const _ = require("./lib/config")
+const _             = require("./lib/config")
 
 let results = ""
 let formattedOutput = ""

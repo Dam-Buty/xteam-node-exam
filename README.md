@@ -13,8 +13,9 @@ How to test
 ----
 `npm test`
 
-(`npm coverage` will generate an istanbul coverage report) 
+Please disregard the big ugly white lines in the mocha report, they are added by mock-cli which i used to stub stdin & process.argv in unit-testing.
 
+`npm coverage` will generate an istanbul coverage report.
 
 How to use
 ----

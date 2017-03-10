@@ -1,4 +1,5 @@
 /* jshint expr:true */
+/*jshint unused:false*/
 'use strict'
 
 const chai = require('chai')

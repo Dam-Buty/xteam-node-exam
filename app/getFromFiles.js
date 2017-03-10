@@ -1,11 +1,11 @@
 'use strict'
 
-const fs = require('fs')
-const path = require('path')
-const warn = require("../lib/talk").warn
+const fs    = require('fs')
+const path  = require('path')
+const warn  = require("../lib/talk").warn
 const debug = require("../lib/talk").debug
 const error = require("../lib/talk").error
-const _ = require("../lib/config")
+const _     = require("../lib/config")
 
 /*******************
  * Helper Functions
