@@ -13,7 +13,7 @@ How to test
 ----
 `npm test`
 
-Please disregard the big ugly white lines in the mocha report, they are added by mock-cli which i used to stub stdin & process.argv in unit-testing.
+Please disregard the big ugly white lines in the mocha report, they are added by mock-cli which i used to stub stdin & process.argv in unit-testing. _(there appears to be a race condition in the last 2 tests that didn't pop up on my development VM. This will be repaired soon.)_
 
 `npm run coverage` will generate an istanbul coverage report.
 
